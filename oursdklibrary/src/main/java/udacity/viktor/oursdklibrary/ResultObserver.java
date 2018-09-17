@@ -5,5 +5,5 @@ package udacity.viktor.oursdklibrary;
 * Example for the Observer is the MainActivity
 */
 public interface ResultObserver {
-    void onResultUpdated(AuthenticationResult authenticationResult);
+    void onResultUpdated(AuthenticationController authenticationResult);
 }

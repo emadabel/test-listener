@@ -3,6 +3,7 @@ package udacity.viktor.testinglistener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import udacity.viktor.oursdklibrary.AuthenticationController;
 import udacity.viktor.oursdklibrary.AuthenticationResult;
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements ResultObserver {
 
         authenticationController.registerObserver(this);
         authenticationController.initialize(authenticationSettings);
-        authenticationController.startAuthentication(this);
     }
 
     @Override
@@ -33,11 +33,13 @@ public class MainActivity extends AppCompatActivity implements ResultObserver {
         authenticationController.removeObserver(this);
     }
 
+    // get the result from the static instance of AuthenticationController
+    // observer pattern with pull mechanism
     @Override
-    public void onResultUpdated(AuthenticationResult result) {
-        switch (result) {
+    public void onResultUpdated(AuthenticationController result) {
+        switch (result.getResult()) {
             case ERROR:
-                Log.d(TAG, "ERROR: " + result.message);
+                Log.d(TAG, "ERROR: " + result.getResult().message);
                 break;
             case CANCEL:
                 Log.d(TAG, "CANCEL");
@@ -46,5 +48,9 @@ public class MainActivity extends AppCompatActivity implements ResultObserver {
                 Log.d(TAG, "SUCCESS");
                 break;
         }
+    }
+
+    public void Submit(View view) {
+        authenticationController.startAuthentication(this);
     }
 }

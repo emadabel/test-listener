@@ -19,6 +19,10 @@ public class AuthenticationController implements Subject {
 
     }
 
+    public AuthenticationResult getResult() {
+        return mResult;
+    }
+
     public static AuthenticationController getInstance() {
 
         if (instance == null) {
@@ -62,7 +66,7 @@ public class AuthenticationController implements Subject {
     @Override
     public void notifyObservers() {
         for (ResultObserver observer : mObservers) {
-            observer.onResultUpdated(mResult);
+            observer.onResultUpdated(this); // send the AuthenticationController object that holding the results
         }
     }
 
